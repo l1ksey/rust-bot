@@ -29,7 +29,7 @@ async def self_ping(url):
         await asyncio.sleep(600) # Пингуем раз в 10 минут
 
 TOKEN = 'MTQ5MDI0NDIwOTc0NjI1MTc5Ng.Gk3Rzm.hTgqB5QHxCS5ZNA-16WGUZN8xUHSk_pAv3jV2g' # Вставь новый токен, если Discord его опять сбросил
-IP = '90283678691733524'
+IP = '85.234.23.186'
 PORT = '28015'
 # Скопируй ссылку из Render (синяя под названием проекта, кончается на .onrender.com)
 MY_URL = 'https://rust-bot-xhgc.onrender.com' 
