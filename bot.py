@@ -29,7 +29,7 @@ async def self_ping(url):
         await asyncio.sleep(600) # Пингуем раз в 10 минут
 
 TOKEN = 'MTQ5MDI0NDIwOTc0NjI1MTc5Ng.Gk3Rzm.hTgqB5QHxCS5ZNA-16WGUZN8xUHSk_pAv3jV2g' # Вставь новый токен, если Discord его опять сбросил
-IP = 'connect 85.234.23.186'
+IP = '85.234.23.186'
 PORT = '28015'
 # Скопируй ссылку из Render (синяя под названием проекта, кончается на .onrender.com)
 MY_URL = 'https://rust-bot-xhgc.onrender.com' 
@@ -44,17 +44,25 @@ async def on_ready():
     # Запускаем самопинг в фоновом режиме
     client.loop.create_task(self_ping(MY_URL))
     
-    while True:
+while True:
         try:
-            response = requests.get(f"https://api.rust-stat.us/2/{IP}/{PORT}")
+            # Используем альтернативное API (оно более стабильное)
+            response = requests.get(f"https://api.battlemetrics.com/servers?filter[search]={IP}")
             data = response.json()
-            if data.get("online"):
-                status = f"Онлайн: {data['players']['online']}/{data['players']['max']}"
+            
+            # Проверяем, нашел ли BattleMetrics сервер
+            if data['data']:
+                server = data['data'][0]['attributes']
+                status = f"Онлайн: {server['players']}/{server['maxPlayers']}"
             else:
-                status = "Сервер офлайн"
+                status = "Сервер не найден"
+                
             await client.change_presence(activity=discord.Game(name=status))
-        except:
-            print("Ошибка обновления статуса")
+            print(f"Обновил статус: {status}")
+        except Exception as e:
+            print(f"Ошибка: {e}")
+            await client.change_presence(activity=discord.Game(name="Ошибка API"))
+            
         await asyncio.sleep(60)
 
 client.run(TOKEN)
