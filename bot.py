@@ -32,7 +32,7 @@ TOKEN = 'MTQ5MDI0NDIwOTc0NjI1MTc5Ng.Gk3Rzm.hTgqB5QHxCS5ZNA-16WGUZN8xUHSk_pAv3jV2
 IP = '85.234.23.186'
 PORT = '28015'
 # Скопируй ссылку из Render (синяя под названием проекта, кончается на .onrender.com)
-MY_URL = 'https://твой-адрес.onrender.com' 
+MY_URL = 'https://rust-bot-xhgc.onrender.com' 
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
